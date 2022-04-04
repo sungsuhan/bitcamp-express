@@ -79,22 +79,18 @@ app.post("/api/basic/bmi", (req,res) => {
 
 function calc(num1, opcode, num2) {
   console.log(' ### 진입 ### ')
-  let num1 = Number(num1);
-  let num2 = Number(num2);
+  let _num1 = Number(num1);
+  let _num2 = Number(num2);
   var result = {num1, opcode, num2}
 
   console.log(`계산중인 값들 : ${JSON.stringify(result)}`)
-  if (opcode="+")
-    result= num1 + num2
-  if (opcode="-")
-    result = num1 - num2  
-  if (opcode="*")
-    result = num1 * num2
-  if (opcode="/")
-    result = num1 / num2
-  if (opcode="%")
-    result = num1 % num2  
-
+  switch(opcode){
+    case "+": result.calc = _num1 + _num2
+    case "-": result.calc = _num1 - _num2
+    case "*": result.calc = _num1 * _num2
+    case "/": result.calc = _num1 / _num2
+    case "%": result.calc = _num1 % _num2
+  }
     console.log(`계산 끝난 값들 : ${JSON.stringify(result)}`)
 
     return result
