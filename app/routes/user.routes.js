@@ -10,13 +10,11 @@ module.exports = function(app) {
   app.use((req, res, next)=>{
     res.header(
 
-
     )
-
   });
   //next();
-  app.get("", ()=>{})
-  app.post("", ()=>{})
+  app.get("", (req, res)=>{})
+  app.post("/api/board/write", (req, res)=>{})
   app.update("", ()=>{})
   app.delete("", ()=>{})
 };

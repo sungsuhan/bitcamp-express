@@ -33,3 +33,80 @@ app.get('/api/now', cors(corsOptions),(req, res) => {
   res.json({"now":new Date().toLocaleString()})
 })
 
+app.post("/api/board/write", (req, res) => {
+  const {passengerId, name, teamId, subject} = req.body
+  console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
+  console.log(`passengerId 값 : ${passengerId}`)
+  console.log(`name 값 : ${name}`)
+  console.log(`teamId 값 : ${teamId}`)
+  console.log(`subject 값 : ${subject}`)
+  res.json(req.body)
+})
+
+function computeBMI(name, height, weight) {
+  console.log(' ### 진입 ### ')
+  let _height = Number(height);
+  let _weight = Number(weight);
+  
+  let bmi = _weight*10000/Math.pow(_height,2);
+
+  let output = Math.round(bmi);
+  var result = {name, height, weight}
+
+  console.log(`계산중인 값들 : ${JSON.stringify(result)}`)
+  if (output < 18.5)
+    result.bmi = "저체중"
+  if (output >= 18.5 && output<= 25)
+    result.bmi = "보통"
+  if (output > 25 && output <= 30)
+    result.bmi = "과체중"
+  if (output > 30)
+    result.bmi = "비만"
+    console.log(`계산 끝난 값들 : ${JSON.stringify(result)}`)
+
+  return result
+}
+app.post("/api/basic/bmi", (req,res) => {
+  const {name, height, weight} = req.body
+  console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
+  console.log(`name 값 : ${name}`)
+  console.log(`height 값 : ${height}`)
+  console.log(`weight 값 : ${weight}`)
+  const json = computeBMI(name, height, weight)
+  console.log(`계산된 JSON 값 : ${JSON.stringify(json)}`)
+  res.json(json)
+})
+
+function calc(num1, opcode, num2) {
+  console.log(' ### 진입 ### ')
+  let num1 = Number(num1);
+  let num2 = Number(num2);
+  var result = {num1, opcode, num2}
+
+  console.log(`계산중인 값들 : ${JSON.stringify(result)}`)
+  if (opcode="+")
+    result= num1 + num2
+  if (opcode="-")
+    result = num1 - num2  
+  if (opcode="*")
+    result = num1 * num2
+  if (opcode="/")
+    result = num1 / num2
+  if (opcode="%")
+    result = num1 % num2  
+
+    console.log(`계산 끝난 값들 : ${JSON.stringify(result)}`)
+
+    return result
+}
+app.post("/api/basic/calc", (req,res) => {
+  const {num1, opcode, num2} = req.body
+  console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
+  console.log(`숫자1 값 : ${num1}`)
+  console.log(`연산자 값 : ${opcode}`)
+  console.log(`숫자2 값 : ${num2}`)
+  const json = calc(num1, opcode, num2)
+  console.log(`계산된 JSON 값 : ${JSON.stringify(json)}`)
+  res.json(json)
+})
+
