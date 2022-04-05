@@ -4,10 +4,23 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const { port, MONGO_URI } = process.env;
+const admin = require('./app/routes/admin.routes')
+const basic = require('./app/routes/basic.routes')
+const board = require('./app/routes/board.routes')
+const game = require('./app/routes/game.routes')
+const todo = require('./app/routes/todo.routes')
+const user = require('./app/routes/user.routes')
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+require('./app/routes/board.routes')('/api/board', app)
+app.use('/api/admin', admin)
+app.use('/api/basic', basic)
+app.use('/api/board', board)
+app.use('/api/game', game)
+app.use('/api/todo', todo)
+app.use('/api/user', user)
 var corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200 
@@ -33,17 +46,8 @@ app.get('/api/now', cors(corsOptions),(req, res) => {
   res.json({"now":new Date().toLocaleString()})
 })
 
-app.post("/api/board/write", (req, res) => {
-  const {passengerId, name, teamId, subject} = req.body
-  console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
-  console.log(`passengerId 값 : ${passengerId}`)
-  console.log(`name 값 : ${name}`)
-  console.log(`teamId 값 : ${teamId}`)
-  console.log(`subject 값 : ${subject}`)
-  res.json(req.body)
-})
-
-function computeBMI(name, height, weight) {
+function bmi(payload) {
+  const {name, height, weight} = payload
   console.log(' ### 진입 ### ')
   let _height = Number(height);
   let _weight = Number(weight);
@@ -72,37 +76,60 @@ app.post("/api/basic/bmi", (req,res) => {
   console.log(`name 값 : ${name}`)
   console.log(`height 값 : ${height}`)
   console.log(`weight 값 : ${weight}`)
-  const json = computeBMI(name, height, weight)
+  const json = bmi(req.body)
   console.log(`계산된 JSON 값 : ${JSON.stringify(json)}`)
   res.json(json)
 })
 
-function calc(num1, opcode, num2) {
+function calc(payload) {
+  const {num1, opcode, num2} = payload
   console.log(' ### 진입 ### ')
   let _num1 = Number(num1);
   let _num2 = Number(num2);
-  var result = {num1, opcode, num2}
+  let res = 0;
+  var result = {num1, opcode, num2, res}
 
   console.log(`계산중인 값들 : ${JSON.stringify(result)}`)
-  switch(opcode){
-    case "+": result.calc = _num1 + _num2
-    case "-": result.calc = _num1 - _num2
-    case "*": result.calc = _num1 * _num2
-    case "/": result.calc = _num1 / _num2
-    case "%": result.calc = _num1 % _num2
+  if(opcode == '+') {
+    result.res = _num1 + _num2;
   }
-    console.log(`계산 끝난 값들 : ${JSON.stringify(result)}`)
-
-    return result
+  else if(opcode == '-') {
+    result.res = _num1 - _num2; 
+  }
+  else if(opcode == '*') {
+    result.res = _num1 * _num2; 
+  }
+  else if(opcode == '/') {
+    result.res = _num1 / _num2; 
+  }
+  if (opcode == '%') {
+    result.res = _num1 % _num2
+  }
+  console.log(`계산 끝난 값들 : ${JSON.stringify(result)}`)
+  
+  return result
 }
+
 app.post("/api/basic/calc", (req,res) => {
   const {num1, opcode, num2} = req.body
   console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
   console.log(`숫자1 값 : ${num1}`)
   console.log(`연산자 값 : ${opcode}`)
   console.log(`숫자2 값 : ${num2}`)
-  const json = calc(num1, opcode, num2)
+  const json = calc(req.body)
   console.log(`계산된 JSON 값 : ${JSON.stringify(json)}`)
   res.json(json)
 })
+
+app.post("/api/basic/calc", (req,res) => {
+  const {num1, opcode, num2} = req.body
+  console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
+  console.log(`숫자1 값 : ${num1}`)
+  console.log(`연산자 값 : ${opcode}`)
+  console.log(`숫자2 값 : ${num2}`)
+  const json = calc(req.body)
+  console.log(`계산된 JSON 값 : ${JSON.stringify(json)}`)
+  res.json(json)
+})
+
 

@@ -1,14 +1,10 @@
-module.exports = function(app) {
-    app.use((req, res, next)=>{
-      res.header(
-  
-  
-      )
-  
-    });
-    //next();
-    app.get("", ()=>{})
-    app.post("", ()=>{})
-    app.update("", ()=>{})
-    app.delete("",  ()=>{})
-  };
+const express = require('express');
+const todoRouter = express.Router();
+
+todoRouter.use((req, res, next) => {
+  console.log(' ### 스케줄 서버 ### ');
+  next();
+});
+
+
+module.exports = todoRouter;
