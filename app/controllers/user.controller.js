@@ -1,22 +1,14 @@
 const db = require('../models/index')
 const UserSchema = db.user
 
-exports.signUp = (req,res) => {
-    const {userId, pw, name, tel} = req.body
-    console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
-    console.log(`넘어온 ID 값 : ${userId}`)
-    console.log(`넘어온 PW 값 : ${pw}`)
-    console.log(`넘어온 이름 값 : ${name}`)
-    console.log(`넘어온 번호 값 : ${tel}`)
-    const user = new UserSchema({
-        userId, pw, name, tel
+exports.signup = (req,res) => {
+    new UserSchema(req.body).save(()=>{
+        res.status(200).json({'result':'ok'}) 
     })
-    user.save(() => {
-        res.status(200).json({'result':'ok'})
-    })
+    
 }
 
-exports.signIn = (req,res) => {
+exports.signin = (req,res) => {
     const {name, pw} = req.body
     console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
     console.log(`ID 값 : ${name}`)

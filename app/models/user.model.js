@@ -1,6 +1,4 @@
-module.exports = mongoose => {
-    const UserSchema = mongoose.model(
-        'user',
+module.exports = mongoose =>  mongoose.model('user',
         mongoose.Schema(
             {
                 userId: String,
@@ -10,5 +8,4 @@ module.exports = mongoose => {
             }, { timestamps: true }
         )
     )
-    return UserSchema
-}
+
