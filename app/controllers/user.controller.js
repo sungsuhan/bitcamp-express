@@ -9,12 +9,12 @@ exports.join = (req,res) => {
 }
 
 exports.login = (req,res) => {
-    const {name, pw} = req.body
+    const {username, password} = req.body
     console.log(`넘어온 JSON 값 : ${JSON.stringify(req.body)}`)
-    console.log(`ID 값 : ${name}`)
-    console.log(`PW 값 : ${pw}`)
+    console.log(`ID 값 : ${username}`)
+    console.log(`PW 값 : ${password}`)
     const user = new UserSchema({
-        name, pw
+        username, password
     })
     user.save(() => {
         res.status(200).json({'result':'ok'})
@@ -32,7 +32,7 @@ exports.userlist = (req,res) => {
 
 exports.profile = (req, res) => {
     console.log(`### user profile access ###`)
-    UserSchema.find({userId: req.params.id})
+    UserSchema.find({username: req.params.id})
     .exec((err, user) => {
         if (err) return res.status(400).send(err)
         res.status(200).json({ success: true, user })

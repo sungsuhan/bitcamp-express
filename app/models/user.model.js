@@ -1,10 +1,10 @@
 module.exports = mongoose =>  mongoose.model('user',
         mongoose.Schema(
             {
-                userId: String,
-                pw: String,
+                username: String,
+                password: String,
                 name: String,
-                tel: String
+                telephone: String
             }, { timestamps: true }
         )
     )

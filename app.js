@@ -47,4 +47,4 @@ app.get('/', (req, res) => {
 app.get('/api/now', cors(corsOptions),(req, res) => {
   res.json({"now":new Date().toLocaleString()})
 })
-/** */
+
