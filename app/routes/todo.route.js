@@ -1,3 +1,3 @@
-const { join, login } = require('../controllers/user.controller');
-module.exports = x => {x.app.post(`${x.url}/join`, join),
-x.app.post(`${x.url}/login`, login)};
+const { todo, todolist } = require('../controllers/todo.controller');
+module.exports = x =>  {x.app.post(`${x.url}/todo`, todo),
+x.app.get(`${x.url}/todo-list`, todolist)};

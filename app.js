@@ -28,6 +28,7 @@ db.mongoose
     console.log('db.user.db', db.user.db)
     console.log('db.team.db', db.team.db)
     console.log('db.board.db', db.board.db)
+    console.log('db.todo.db', db.todo.db)
   })
   .catch(err => { console.log(' 몽고DB와 연결 실패', err )
         process.exit();
