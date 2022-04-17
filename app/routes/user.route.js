@@ -1,6 +1,8 @@
-const { join, login, userlist, profile } = require('../controllers/user.controller');
-module.exports = x => {x.app.post(`${x.url}/join`, join),
-x.app.post(`${x.url}/login`, login), 
-x.app.get(`${x.url}/user-list`, userlist), 
-x.app.get(`${x.url}/profile/:id`, profile)};
+const { join, userlist, profile } = require('../controllers/user.controller');
+
+module.exports = x => {
+    console.log(' ### user.route 로 들어옴 ###')
+    x.app.post(`${x.url}/join`, join);
+    x.app.get(`${x.url}/list`, userlist);
+}
 
