@@ -6,10 +6,18 @@ exports.join = (req,res) => {
     new UserSchema(req.body).save(()=>{
         res.status(200).json({'result':'ok'}) 
     })
-    
 }
 
-exports.getuser = (req,res) => {
+exports.login = (req, res) => {
+    console.log(`### user login access ###`)
+    UserSchema.find({userid: req.params.id, password: req.paranms.password})
+    .exec((err, user) => {
+        if (err) return res.status(400).send(err)
+        res.status(200).json({ success: true, user })
+    })
+}
+
+exports.getUser = (req,res) => {
     console.log(`### user Controller access ###`)
     UserSchema.find()
     .exec((err, users) => {
@@ -25,5 +33,4 @@ exports.profile = (req, res) => {
         if (err) return res.status(400).send(err)
         res.status(200).json({ success: true, user })
     })
-    
 }
