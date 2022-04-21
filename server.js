@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import express from 'express';
+import express from 'express'
 import db from './app/models/index.js'
 import apiRouter from "./app/routes/api.js"
 import basicRouter from "./app/routes/basic.js"
@@ -17,6 +17,8 @@ async function startServer() {
     app.use(express.static('public'));
     app.use(express.urlencoded({extended: true}));
     app.use(express.json());
+    //app.use(passport.initialize());
+    //passportConfig();
     app.use("/", indexRouter);
     app.use("/api", apiRouter);
     app.use("/basic", basicRouter);

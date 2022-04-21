@@ -5,7 +5,7 @@ export default function BasicService(){
         let _weight=Number(weight);
         let bmi = _weight/Math.pow(_height,2);
         let output = Math.round(bmi*100)/100;
-        var result = {name, height, weight}
+        const result = {name, height, weight}
         console.log(`계산중인 값들 : ${JSON.stringify(result)}`)
         if (output<18.5)
             result.bmi = "저체중";
@@ -25,10 +25,14 @@ export default function BasicService(){
             console.log(`이름 : ${name}`)
             console.log(`키 : ${height}`)
             console.log(`몸무게 : ${weight}`)
-            const json = calcBmi({name, height, weight})
-            console.log(`계산된 JSON 값 : ${JSON.stringify(json)}`)
-            return json
+            const result = calcBmi({name, height, weight})
+            console.log(`계산된 JSON 값 : ${JSON.stringify(result)}`)
+            return result
         }
 
     }
 }
+
+
+
+    
