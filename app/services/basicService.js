@@ -3,8 +3,8 @@ export default function BasicService(){
         const {name, height, weight} = payload
         let _height=Number(height);
         let _weight=Number(weight);
-        let bmi = _weight/Math.pow(_height,2);
-        let output = Math.round(bmi*100)/100;
+        let bmi = _weight/Math.pow(_height/100,2);
+        let output = Math.round(bmi);
         const result = {name, height, weight}
         console.log(`계산중인 값들 : ${JSON.stringify(result)}`)
         if (output<18.5)
@@ -14,7 +14,7 @@ export default function BasicService(){
         if (output>=25 && output<=30)
             result.bmi = "과체중";
         if (output>30)
-            result.bmi = "경도비만";
+            result.bmi = "비만";
             console.log(`계산끝난 값들 : ${JSON.stringify(result)}`)
         return result
     }
